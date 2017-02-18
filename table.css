@@ -1,0 +1,25 @@
+body {
+  margin: 15px;
+}
+
+div.search span {
+  display: block;
+}
+
+div.panel {
+  margin-bottom: 15px;
+}
+
+div.panel .panel-body p:last-child {
+  margin-bottom: 0;
+}
+
+
+/**
+ * Styles for datatables.mark.js
+ */
+
+mark {
+  padding: 0;
+  background: #f1c40f;
+}
