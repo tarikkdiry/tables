@@ -3,10 +3,11 @@
   <head>
     <meta charset="utf-8">
     <title>Classroom Availability Table</title>
-    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="css/materialize.css" style="text/css">
-  </head>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/jq-2.2.4/dt-1.10.13/datatables.min.css"/>
 
+
+  </head>
   <body>
   <style type="text/css">
   .tg  {border-collapse:collapse;border-spacing:0;}
@@ -14,33 +15,60 @@
   .tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
   .tg .tg-yw4l{vertical-align:top}
   </style>
+  <center>
 
+    <input type="text" id="myInput" onkeyup="tableFilter()" placeholder="Search for room number..">
 
+  <table id="myTable">
+    <tr class="header">
+      <th style="width:50%;">Room Number</th>
+      <th style="width:50%;">Time</th>
+    </tr>
 
-<center>
-    <input type=button onClick="parent.location='day_of_the_week.html'" value='Babbio'>
-    <input type=button onClick="parent.location='day_of_the_week.html'" value='McClean'>
-    <input type=button onClick="parent.location='day_of_the_week.html'" value='EAS'>
-    <input type=button onClick="parent.location='day_of_the_week.html'" value='Burchard'>
-    <br>
-    <input type=button onClick="parent.location='day_of_the_week.html'" value='Lieb'>
-    <input type=button onClick="parent.location='day_of_the_week.html'" value='Morton'>
-    <input type=button onClick="parent.location='day_of_the_week.html'" value='Kidde'>
-    <input type=button onClick="parent.location='day_of_the_week.html'" value='Peirce'>
-    <br>
-    <input type=button onClick="parent.location='day_of_the_week.html'" value='Carnegie'>
-    <input type=button onClick="parent.location='day_of_the_week.html'" value='Altorfer'>
-
-
-
-</center>
-
-</center>
-
-
+    <tr>
+      <td>Hello</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>Wassup</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>Howudoin</td>
+      <td></td>
+    </tr>
+  </table>
   </body>
 
+  <script>
+  function tableFilter() {
+    var input
+    var filter
+    var table
+    var tr
+    var td
+    var i;
+    input = document.getElementById("myInput");
+    filter = input.value.toUpperCase();
+    table = document.getElementById("myTable");
+    tr = table.getElementsByTagName("tr");
+
+    for (i = 0; i < tr.length; i++) {
+      td = tr[i].getElementsByTagName("td")[0];
+      if (td) {
+        if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+          tr[i].style.display = "";
+        } else {
+          tr[i].style.display = "none";
+        }
+      }
+    }
+  }
+  </script>
   <!-- Matrialize Javascript -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/js/materialize.min.js"></script>
+
+  <script type="text/javascript" src="https://cdn.datatables.net/v/dt/jq-2.2.4/dt-1.10.13/datatables.min.js"></script>
+
 
 </html>
