@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html>
+	<body onLoad="dropdown('')">
+		<form onsubmit='return false'><fieldset>
+			Name:
+			<input type='text' name='name' id='name' autofocus required><br><br>
+			
+			Building:
+			<select name='building' id='building' onchange="dropdown(this.value)">
+				<option value='empty'></option>
+				<option value="burchard">Burchard</option>
+				<option value="babbio">Babbio Center</option>
+				<option value="carnegie">Carnegie Laboratory</option>
+				<option value="eas">Edwin A. Stevens</option>
+				<option value="kidde">Kidde</option>
+				<option value="lieb">Lieb</option>
+				<option value='morton'>Morton</option>
+				<option value="pierce">Pierce</option>
+				<option value="mclean">McLean</option>
+			</select><br><br>
+			
+			Room Number:
+			<select id='default'>
+				<option value='selectDefault'>Select a building first</option>
+			</select>
+			<select id='burchard' onchange=dropdown('burchard')>
+				<option value='b118'>B118</option>
+				<option value='b123'>B123</option>
+				<option value='b126'>B126</option>
+				<option value='b213'>B213</option>
+				<option value='b314'>B314</option>
+				<option value='b430'>B430</option>
+				<option value='b514'>B514</option>
+				<option value='b517'>B517</option>
+				<option value='b519'>B519</option>
+				<option value='b714'>B714</option>
+				<option value='b715'>B715</option>
+			</select>
+			
+			<select id='babbio' onchange=dropdown('babbio')>
+				<option value='bc104'>BC104</option>
+				<option value='bc110'>BC110</option>
+				<option value='bc122'>BC122</option>
+				<option value='bc202'>BC202</option>
+				<option value='bc203'>BC203</option>
+				<option value='bc204'>BC204</option>
+				<option value='bc210'>BC210</option>
+				<option value='bc212'>BC212</option>
+				<option value='bc219'>BC219</option>
+				<option value='bc220'>BC220</option>
+				<option value='bc221'>BC221</option>
+				<option value='bc304'>BC304</option>
+				<option value='bc310'>BC310</option>
+				<option value='bc312'>BC312</option>
+				<option value='bc319'>BC319</option>
+				<option value='bc320'>BC320</option>
+				<option value='bc321'>BC321</option>
+				<option value='bc532b'>BC532B</option>
+				<option value='bc640'>BC640</option>
+				<option value='bchsfl'>BCHFSL</option>
+			</select>
+			
+			<select id='carnegie' onchange=dropdown('carnegie')>
+				<option value='c315'>C315</option>
+				<option value='c316'>C316</option>
+			</select>
+			
+			<select id="eas" onchange=dropdown('eas')>
+				<option value='e130'>E130</option>
+				<option value='e222'>E222</option>
+				<option value='e229'>E229</option>
+				<option value='e229a'>E229A</option>
+				<option value='e230'>E230</option>
+				<option value='e231'>E231</option>
+				<option value='e329'>E329</option>
+				<option value='e330'>E330</option>
+			</select>
+			
+			<select id='kidde' onchange=dropdown('kidde')>
+				<option value='k228'>K228</option>
+				<option value='k360'>K360</option>
+				<option value='k390'>K390</option>
+			</select>
+			
+			<select id='lieb' onchange=dropdown('lieb')>
+				<option value="l120">L120</option>
+			</select>
+			
+			<select id='morton' onchange=dropdown('morton')>
+				<option value='m103'>M103</option>
+				<option value='m105'>M105</option>
+				<option value='m205'>M205</option>
+				<option value='m324'>M324</option>
+			</select>
+			
+			<select id='pierce' onchange=dropdown('pierce')>
+				<option value='p116'>P116</option>
+				<option value='p120'>P120</option>
+				<option value='p216'>P216</option>
+				<option value='p218'>P218</option>
+				<option value='p220'>P220</option>
+			</select>
+			
+			<select id='mclean' onchange=dropdown('mclean')>
+				<option value='x104'>X104</option>
+				<option value='x105'>X105</option>
+				<option value='x106'>X106</option>
+				<option value='x119'>X119</option>
+				<option value='x218a'>X218A</option>
+				<option value='x218b'>X218B</option>
+				<option value='x414'>X414</option>
+			</select><br><br>
+			
+			Time:<br>
+			From: <input type='datetime-local' id='starttime' name='starttime' required><br>
+			To: <input type='time' id='endtime' name='endtime' required>
+			<br><br>
+			
+			What will you be using the room for?<br>
+			<textarea id='reason' name='reason' rows='5' cols='32' wrap='soft' required></textarea><br><br>
+			
+			
+			<button id='submit' onclick="formData()">Request Room</button>
+		</fieldset></form>
+		
+		<table style="width:75%" id="myTableData">
+		<caption><b>Current Reservations</b></caption>
+			<tr>
+				<th>Name</th>
+				<th>Room Number</th>
+				<th>Start Time</th>
+				<th>End Time</th>
+				<th>Reason</th>
+			</tr>
+		</table>
+		
+		
+		
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+		<script src="js/forms.js"></script>
+		<!--<script>
+			var visible_dropdown;
+			var name, room, starttime, endtime, reason, result;
+			function dropdown(val) {
+				if(val=='') {
+					$("#default").show();
+					$("#burchard").hide();
+					$("#babbio").hide();
+					$('#carnegie').hide();
+					$('#eas').hide();
+					$('#kidde').hide();
+					$('#lieb').hide();
+					$('#morton').hide();
+					$('#pierce').hide();
+					$('#mclean').hide();
+				} else if(val=='burchard') {
+					$("#default").hide();
+					$("#burchard").show();
+					visible_dropdown = '#burchard'
+					visible_dropdown = $('#burchard option:selected').text();
+					$("#babbio").hide();
+					$('#carnegie').hide();
+					$('#eas').hide();
+					$('#kidde').hide();
+					$('#lieb').hide();
+					$('#morton').hide();
+					$('#pierce').hide();
+					$('#mclean').hide();
+				} else if(val=='babbio') {
+					$("#default").hide();
+					$("#burchard").hide();
+					$("#babbio").show();
+					visible_dropdown = $('#babbio option:selected').text();
+					$('#carnegie').hide();
+					$('#eas').hide();
+					$('#kidde').hide();
+					$('#lieb').hide();
+					$('#morton').hide();
+					$('#mclean').hide();
+					$('#pierce').hide();
+				} else if(val=='carnegie') {
+					$("#default").hide();
+					$("#burchard").hide();
+					$("#babbio").hide();
+					$('#carnegie').show();
+					visible_dropdown = $('#carnegie option:selected').text();
+					$('#eas').hide();
+					$('#kidde').hide();
+					$('#lieb').hide();
+					$('#morton').hide();
+					$('#mclean').hide();
+					$('#pierce').hide();
+				} else if(val=='eas') {
+					$("#default").hide();
+					$("#burchard").hide();
+					$("#babbio").hide();
+					$('#carnegie').hide();
+					$('#eas').show();
+					visible_dropdown = $('#eas option:selected').text();
+					$('#kidde').hide();
+					$('#lieb').hide();
+					$('#morton').hide();
+					$('#mclean').hide();
+					$('#pierce').hide();
+				} else if(val=='kidde') {
+					$("#default").hide();
+					$("#burchard").hide();
+					$("#babbio").hide();
+					$('#carnegie').hide();
+					$('#eas').hide();
+					$('#kidde').show();
+					visible_dropdown = $('#kidde option:selected').text();
+					$('#lieb').hide();
+					$('#morton').hide();
+					$('#mclean').hide();
+					$('#pierce').hide();
+				} else if(val=='lieb') {
+					$("#default").hide();
+					$("#burchard").hide();
+					$("#babbio").hide();
+					$('#carnegie').hide();
+					$('#eas').hide();
+					$('#kidde').hide();
+					$('#lieb').show();
+					visible_dropdown = $('#lieb option:selected').text();
+					$('#morton').hide();
+					$('#mclean').hide();
+					$('#pierce').hide();
+				} else if(val=='morton') {
+					$("#default").hide();
+					$("#burchard").hide();
+					$("#babbio").hide();
+					$('#carnegie').hide();
+					$('#eas').hide();
+					$('#kidde').hide();
+					$('#lieb').hide();
+					$('#morton').show();
+					visible_dropdown = $('#morton option:selected').text();
+					$('#mclean').hide();
+					$('#pierce').hide();
+				} else if(val=='mclean') {
+					$("#default").hide();
+					$("#burchard").hide();
+					$("#babbio").hide();
+					$('#carnegie').hide();
+					$('#eas').hide();
+					$('#kidde').hide();
+					$('#lieb').hide();
+					$('#morton').hide();
+					$('#mclean').show();
+					visible_dropdown = $('#mclean option:selected').text();
+					$('#pierce').hide();
+				} else if(val=='pierce') {
+					$("#default").hide();
+					$("#burchard").hide();
+					$("#babbio").hide();
+					$('#carnegie').hide();
+					$('#eas').hide();
+					$('#kidde').hide();
+					$('#lieb').hide();
+					$('#morton').hide();
+					$('#mclean').hide();
+					$('#pierce').show();
+					visible_dropdown = $('#pierce option:selected').text();
+				}
+			}
+			
+			function formData() {
+				name = $('#name').val();
+				room = visible_dropdown
+				starttime = $('#starttime').val();
+				endtime = $('#endtime').val();
+				reason = $('#reason').val();
+				result = [name, room, starttime, endtime, reason];
+			}
+			
+			function getFormData() {
+			//return an array of the submitted form data in the format [name, room, start time, end time, reason]
+				return result;
+			}
+			
+			function updateTable() {
+			
+			}
+		</script>
+<!--		
+		<script type='text/javascript'>
+			// Set the configuration for your app
+			// TODO: Replace with your project's config object
+			var config = {
+				apiKey: "AIzaSyBD_tXbvVbGomcHQfxt1HcNl-6WoNcuZ_E",
+				authDomain: "avail-f562e.firebaseapp.com",
+				databaseURL: "https://avail-f562e.firebaseio.com",
+				storageBucket: "avail-f562e.appspot.com"
+			};
+			firebase.initializeApp(config);
+			
+			var database = firebase.database();
+			var results = getFormData();
+			writeRoomRequest(results[0], results[1], results[2], results[3], results[4], results[5])
+			function writeRoomRequest(name, building, room, starttime, endtime, reason) {
+				alert("writing...")
+				var postData = {
+					name: name,
+					room: room,
+					starttime: starttime,
+					endtime: endtime,
+					reason:reason
+				}
+				database.ref('buildings/' + building).update(postData);
+			}
+		</script>
+		-->
+	</body>
+</html>
