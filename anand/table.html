@@ -4,7 +4,7 @@
 		<form onsubmit='getFormData()' method='post'><fieldset>
 			Name:
 			<input type='text' name='name' id='name' autofocus><br><br>
-			
+
 			Building:
 			<select name='building' id='building' onchange="dropdown(this.value)">
 				<option value='empty'></option>
@@ -18,25 +18,25 @@
 				<option value="pierce">Pierce</option>
 				<option value="mclean">McLean</option>
 			</select><br><br>
-			
+
 			Room Number:
 			<select id='default'>
 				<option value='selectDefault'>Select a building first</option>
 			</select>
 			<select id='burchard'>
-				<option value='b118'>B118</option>
-				<option value='b123'>B123</option>
-				<option value='b126'>B126</option>
-				<option value='b213'>B213</option>
-				<option value='b314'>B314</option>
-				<option value='b430'>B430</option>
-				<option value='b514'>B514</option>
-				<option value='b517'>B517</option>
-				<option value='b519'>B519</option>
-				<option value='b714'>B714</option>
-				<option value='b715'>B715</option>
+				<option value='b118' id='burchard'>B118</option>
+				<option value='b123' id='burchard'>B123</option>
+				<option value='b126' id='burchard'>B126</option>
+				<option value='b213' id='burchard'>B213</option>
+				<option value='b314' id='burchard'>B314</option>
+				<option value='b430' id='burchard'>B430</option>
+				<option value='b514' id='burchard'>B514</option>
+				<option value='b517' id='burchard'>B517</option>
+				<option value='b519' id='burchard'>B519</option>
+				<option value='b714' id='burchard'>B714</option>
+				<option value='b715' id='burchard'>B715</option>
 			</select>
-			
+
 			<select id='babbio'>
 				<option value='bc104'>BC104</option>
 				<option value='bc110'>BC110</option>
@@ -59,12 +59,12 @@
 				<option value='bc640'>BC640</option>
 				<option value='bchsfl'>BCHFSL</option>
 			</select>
-			
+
 			<select id='carnegie'>
 				<option value='c315'>C315</option>
 				<option value='c316'>C316</option>
 			</select>
-			
+
 			<select id="eas">
 				<option value='e130'>E130</option>
 				<option value='e222'>E222</option>
@@ -75,24 +75,24 @@
 				<option value='e329'>E329</option>
 				<option value='e330'>E330</option>
 			</select>
-			
+
 			<select id='kidde'>
 				<option value='k228'>K228</option>
 				<option value='k360'>K360</option>
 				<option value='k390'>K390</option>
 			</select>
-			
+
 			<select id='lieb'>
 				<option value="l120">L120</option>
 			</select>
-			
+
 			<select id='morton'>
 				<option value='m103'>M103</option>
 				<option value='m105'>M105</option>
 				<option value='m205'>M205</option>
 				<option value='m324'>M324</option>
 			</select>
-			
+
 			<select id='pierce'>
 				<option value='p116'>P116</option>
 				<option value='p120'>P120</option>
@@ -100,7 +100,7 @@
 				<option value='p218'>P218</option>
 				<option value='p220'>P220</option>
 			</select>
-			
+
 			<select id='mclean'>
 				<option value='x104'>X104</option>
 				<option value='x105'>X105</option>
@@ -110,18 +110,18 @@
 				<option value='x218b'>X218B</option>
 				<option value='x414'>X414</option>
 			</select><br><br>
-			
+
 			Time:<br>
 			From: <input type='datetime-local' id='starttime' name='starttime'><br>
 			To: <input type='datetime-local' id='endtime' name='endtime'>
 			<br><br>
-			
+
 			What will you be using the room for?<br>
 			<textarea id='reason' name='reason' rows='5' cols='32' wrap='soft'></textarea><br><br>
-			
+
 			<input type='submit' value="Request Room">
 		</fieldset></form>
-		
+
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 		<script>
 			var visible_dropdown
@@ -248,6 +248,10 @@
 					visible_dropdown = $('#pierce option:selected').text();
 				}
 			}
+			$(document).ready( function() {
+    		$('#starttime').val(new Date().toDateInputValue());
+				$('#endtime').val(new Date().toDateInputValue());
+			});​
 			function getFormData() {
 				var name = $('#name').val();
 				var building = $('#building option:selected').text();
@@ -258,7 +262,7 @@
 				return [name, building, room, starttime, endtime, reason]
 			}
 		</script>
-		
+
 		<script type='text/javascript'>
 			// Set the configuration for your app
 			// TODO: Replace with your project's config object
@@ -269,7 +273,7 @@
 				storageBucket: "avail-f562e.appspot.com"
 			};
 			firebase.initializeApp(config);
-			
+
 			var database = firebase.database();
 			var results = getFormData();
 			writeRoomRequest(results[0], results[1], results[2], results[3], results[4], results[5])
